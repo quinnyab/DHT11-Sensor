@@ -1,121 +1,70 @@
-# Getting data from a DHT11 Temperature and Humidity Sensor and using it to rotate a 
+# Getting data from a DHT11 Temperature and Humidity Sensor and using it to rotate a Servo Motor
 
 By Ralph van Dodewaard<br>
 Last updated 15 October 2019
 
 ## Introduction
-Using this manual you'll be able to build a basic prototype that sends data to an Adafruit dashboard, which will display whether a certain spot is available or occupied. The prototype utilizes an Ultrasonic Sensor to measure distance once every few minutes and will be pointed at where people can sit at. If the measured distance goes below a certain threshold, it means that the chair is occupied by someone and the prototype will send this information to the webpage.
+Using this manual you'll be able to build a basic prototype that can automatically rotate a Servo Motor, using data gathered from a DHT11 Temperature and Humidity Sensor.
 
 ## Required hardware components
   - 1x Arduino Board (We'll be using the [ESP8266 Development Board](https://www.amazon.com/HiLetgo-Internet-Development-Wireless-Micropython/dp/B010O1G1ES))
   - 1x [DHT11 Temperature and Humidity Sensor](https://www.amazon.com/DHT11-Digital-Temperature-Humidity-Sensor/dp/B00V2DWL2E)
   - 1x Servo Motor (We'll be using the [MR.RC M-1502 Standard Servo Motor](https://www.amazon.com/DEH-M-1502-Standard-Helicopter-Airplane/dp/B07S3W7KNR))
-  - 4x Female-Female Jumper Wires
+  - 1x [Resistor](https://www.amazon.com/Projects-100EP51210K0-10k-Resistors-Pack/dp/B0185FIOTA) (5k-10k ohm)
+  - 3x Jumper Wires
   
 ## Step 1: Connecting the DHT11 Sensor to the Arduino Board
-The physical build is easy to make and consists of connecting an Ultrasonic Sensor to an ESP32 Development Board with Jumper Wires. Use the schematic below to make sure that the pins are connected correctly:<br>
-`Vcc` to `Vin`<br>
-`Trig` to `D1`<br>
-`Echo` to `D0`<br>
-`Gnd` to `Gnd`<br>
+The first thing we want to do is connect our DHT11 Sensor to the Arduino Board, using Jumber Wires. The image below shows which wires need to be connected to which pins on the board. Note that we attach the resistor between the wires that are connected to `3v3` and `D2`.<br>
+Leftmost pin to `3v3` (red wire)<br>
+Second pin to `D2` (green wire)<br>
+Third pin empty<br>
+fourth pin to `Gnd` (black wire)<br>
+Resistor between red and green wire<br>
 ![Image of schematic](https://github.com/Ralphvandodewaard/iotManual/blob/develop/schematic.png)
 
-## Step 4: Code
-For the protoype to function, simply copy the code below and upload it to your ESP32 Development Board. Make sure to replace some of the code with your own data, like the Wifi Network and your Adafruit information.
+## Step 2: Installing the required libraries in Arduino IDE
+For the DHT11 Sensor to properly function, we will first need to install the required libraries in the [Arduino IDE](https://www.arduino.cc/en/main/software). We can do this by going to the 'Sketch' dropdown menu, selecting 'Include Library' and then clicking on 'Manage Libraries'.<br>
+![Image of library manager](https://github.com/Ralphvandodewaard/manualiot/blob/develop/library1.png)
+
+In the Library Manager, we first want to search for 'Adafruit Unified Sensor'. Scroll down to the correct library, made by Adafruit, and press 'Install'. If done correctly, the library will now say 'Installed'.<br>
+![Image of library manager2](https://github.com/Ralphvandodewaard/manualiot/blob/develop/library2.png)
+
+We now want to install one more library, called the 'DHT sensor library' by Adafruit. Search for the correct library in the Library Manager and again press 'Install'. If done correctly, the library will now say 'Installed'.<br>
+![Image of library manager3](https://github.com/Ralphvandodewaard/manualiot/blob/develop/library3.png)
+
+
+## Step 3: Writing and uploading the required code for the DHT11 Sensor
+If the required libraries for the sensor have been properly installed, as done in Step 2, the code will now start uploading to your Arduino Board.
 ```
-#include <ESP8266WiFi.h>
-#include "Adafruit_MQTT.h"
-#include "Adafruit_MQTT_Client.h"
+#include "DHT.h"
 
-#define WLAN_SSID "[YOUR SSID]"
-#define WLAN_PASS "[YOUR PASSWORD]"
+#define DHTPIN 2
+#define DHTTYPE DHT11
 
-#define AIO_SERVER "io.adafruit.com"
-#define AIO_SERVERPORT 1883
-#define AIO_USERNAME "[YOUR USERNAME]"
-#define AIO_KEY "[YOUR KEY]"
-
-WiFiClient client;
-Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
-
-Adafruit_MQTT_Publish availability = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/availability");
-
-void MQTT_connect();
+DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
-  pinMode(D0, INPUT);
-  pinMode(D1, OUTPUT);
-  Serial.begin(115200);
-  delay(10);
+  Serial.begin(9600);
 
-  Serial.println(); Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(WLAN_SSID);
-
-  WiFi.begin(WLAN_SSID, WLAN_PASS);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println();
-
-  Serial.println("WiFi connected");
-  Serial.println("IP address: "); Serial.println(WiFi.localIP());
+  dht.begin();
 }
-
-uint32_t x=0;
 
 void loop() {
-  MQTT_connect();
+  delay(5000);
 
-  Adafruit_MQTT_Subscribe *subscription;
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
 
-  delay(10);
-  digitalWrite(D1, HIGH);
-  delay(10);
-  digitalWrite(D1, LOW);
-
-  int distance = pulseIn(D0, HIGH);
-  if (distance < 5820) {
-    distance = 0;
-  } else {
-    distance = 1;
-  }
-  
-  int sensorValue = distance;
-  Serial.print(F("\nSending availability "));
-  Serial.print(sensorValue);
-  Serial.print("...");
-  if (! availability.publish(sensorValue)) {
-    Serial.println(F("Failed"));
-  } else {
-    Serial.println(F("Success"));
-  }
-
-  delay(10000);
-}
-
-void MQTT_connect() {
-  int8_t ret;
-
-  if (mqtt.connected()) {
+  if (isnan(h) || isnan(t)) {
+    Serial.println("Failed to read");
     return;
   }
 
-  Serial.print("Connecting to MQTT... ");
-
-  uint8_t retries = 3;
-  while ((ret = mqtt.connect()) != 0) {
-       Serial.println(mqtt.connectErrorString(ret));
-       Serial.println("Retrying MQTT connection in 5 seconds...");
-       mqtt.disconnect();
-       delay(5000);
-       retries--;
-       if (retries == 0) {
-         while (1);
-       }
-  }
-  Serial.println("MQTT Connected!");
+  Serial.print("Humidity: ");
+  Serial.print(h);
+  Serial.print("%  Temperature: ");
+  Serial.print(t);
+  Serial.print("°C ");
 }
 ```
 
