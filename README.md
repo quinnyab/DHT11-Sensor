@@ -3,16 +3,16 @@
 By Ralph van Dodewaard<br>
 Last updated 15 October 2019
 
-## Step 1: Introduction
+## Introduction
 Using this manual you'll be able to build a basic prototype that sends data to an Adafruit dashboard, which will display whether a certain spot is available or occupied. The prototype utilizes an Ultrasonic Sensor to measure distance once every few minutes and will be pointed at where people can sit at. If the measured distance goes below a certain threshold, it means that the chair is occupied by someone and the prototype will send this information to the webpage.
 
-## Step 2: Required hardware components
+## Required hardware components
   - 1x Arduino Board (We'll be using the [ESP8266 Development Board](https://www.amazon.com/HiLetgo-Internet-Development-Wireless-Micropython/dp/B010O1G1ES))
   - 1x [DHT11 Temperature and Humidity Sensor](https://www.amazon.com/DHT11-Digital-Temperature-Humidity-Sensor/dp/B00V2DWL2E)
   - 1x Servo Motor (We'll be using the [MR.RC M-1502 Standard Servo Motor](https://www.amazon.com/DEH-M-1502-Standard-Helicopter-Airplane/dp/B07S3W7KNR))
   - 4x Female-Female Jumper Wires
   
-## Step 3: Connecting the DHT11 Sensor to the Arduino Board
+## Step 1: Connecting the DHT11 Sensor to the Arduino Board
 The physical build is easy to make and consists of connecting an Ultrasonic Sensor to an ESP32 Development Board with Jumper Wires. Use the schematic below to make sure that the pins are connected correctly:<br>
 `Vcc` to `Vin`<br>
 `Trig` to `D1`<br>
