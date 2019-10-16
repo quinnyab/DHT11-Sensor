@@ -85,7 +85,7 @@ Orange wire to `D4`<br>
 ![Image of schematic2](https://github.com/Ralphvandodewaard/manualiot/blob/master/schematic2.png)
 
 ## Step 6: Uploading the required code for the Servo Motor to the Arduino Board
-Unlike with the DHT11 Sensor, the required library for the Servo Motor comes pre-installed on the Arduino IDE. We can therefore start uploading the code for our Servo Motor to the Arduino Board straight away. Combining both the code for the DHT11 Sensor and the Servo Motor, the 
+Unlike with the DHT11 Sensor, the required library for the Servo Motor comes pre-installed on the Arduino IDE. We can therefore start uploading the code for our Servo Motor to the Arduino Board straight away. The code below combines both the code for the DHT11 Sensor and the Servo Motor, so make sure to replace the current code instead of adding to it. Then again press 'Upload' in the top left of your screen. The code will start compiling and uploading to your Arduino Board.
 
 ```
 #include "DHT.h"
@@ -141,4 +141,10 @@ void loop() {
 ```
 
 ## Step 7: Test and customize
-If the Servo Motor has been connected properly and the new code has been uploaded to the Arduino Board, you can now see that the Servo Motor starts to rotate as the measured humidity reaches a certain threshold. You can try this yourself by blowing into the DHT11 Sensor to increase the measured humidity.
+If the Servo Motor has been connected properly and the new code has been uploaded to the Arduino Board, you should now see that the Servo Motor starts to rotate when the measured humidity reaches a certain threshold. You can try this yourself by blowing into the DHT11 Sensor to increase the measured humidity. 
+
+Now that everything is working, you can start editing the code to your liking for your own projects. Below are just a few examples of changes or additions you could make:
+- Change the `delay`, which is now set to 5000, or 5 seconds
+- Change or set new thresholds based on the measured humidity and temperature. The `threshold` variable is currently set to 65% humidity
+- Use another form of output instead of the Servo Motor, like LED Lights
+- Save your data and make graphs using [Adafruit](https://learn.adafruit.com/adafruit-io-basics-dashboards/overview)
