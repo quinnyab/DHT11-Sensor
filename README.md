@@ -23,7 +23,7 @@ Second pin to `D2` (green wire)<br>
 Third pin empty<br>
 fourth pin to `Gnd` (black wire)<br>
 Resistor between red and green wire<br>
-![Image of schematic](https://github.com/Ralphvandodewaard/iotManual/blob/develop/schematic.png)
+![Image of schematic](https://github.com/Ralphvandodewaard/manualiot/blob/master/schematic1.png)
 
 ## Step 2: Installing the required libraries in Arduino IDE
 For the DHT11 Sensor to properly function, we will first need to install the required libraries in the [Arduino IDE](https://www.arduino.cc/en/main/software). We can do this by going to the 'Sketch' dropdown menu, selecting 'Include Library' and then clicking on 'Manage Libraries'.<br>
@@ -78,7 +78,7 @@ If all steps so far have been succesfully executed, we will now be able to see t
 ## Step 5: Connecting the Servo Motor to the Arduino Board
 Now that we've got our DHT11 Sensor working, we want to connect the Servo Motor to our Arduino Board. The Servo Motor that we use has three wires and needs to be connected to the Arduino Board as shown in the image below.
 
-![Image of schematic](https://github.com/Ralphvandodewaard/iotManual/blob/develop/dashboard.PNG)
+![Image of schematic2](https://github.com/Ralphvandodewaard/manualiot/blob/master/schematic2.png)
 
 ## Step 6: Uploading the required code for the Servo Motor to the Arduino Board
 Unlike with the DHT11 Sensor, the required library for the Servo Motor comes pre-installed on the Arduino IDE. We can therefore start uploading the code for our Servo Motor to the Arduino Board straight away. Combining both the code for the DHT11 Sensor and the Servo Motor, the 
