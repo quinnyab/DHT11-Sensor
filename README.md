@@ -147,4 +147,4 @@ Now that everything is working, you can start editing the code to your liking fo
 - Change the `delay`, which is now set to 5000, or 5 seconds
 - Change or set new thresholds based on the measured humidity and temperature. The `threshold` variable is currently set to 65% humidity
 - Use another form of output instead of the Servo Motor, like LED Lights
-- Save your data and make graphs using [Adafruit](https://learn.adafruit.com/adafruit-io-basics-dashboards/overview)
+- Create an overview of your measured data and make graphs using [Adafruit](https://learn.adafruit.com/adafruit-io-basics-dashboards/overview)
