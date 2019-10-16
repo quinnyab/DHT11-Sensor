@@ -21,7 +21,7 @@ The first thing we want to do is connect our DHT11 Sensor to the Arduino Board, 
 Leftmost pin to `3v3` (red wire)<br>
 Second pin to `D2` (green wire)<br>
 Third pin empty<br>
-fourth pin to `Gnd` (black wire)<br>
+Fourth pin to `GND` (black wire)<br>
 Resistor between red and green wire<br>
 ![Image of schematic](https://github.com/Ralphvandodewaard/manualiot/blob/master/schematic1.png)
 
@@ -41,7 +41,7 @@ When doing this, make sure that in 'Tools' the correct Board and Port is selecte
 ```
 #include "DHT.h"
 
-#define DHTPIN 2
+#define DHTPIN 4
 #define DHTTYPE DHT11
 
 DHT dht(DHTPIN, DHTTYPE);
@@ -78,6 +78,10 @@ If all steps so far have been succesfully executed, we will now be able to see t
 ## Step 5: Connecting the Servo Motor to the Arduino Board
 Now that we've got our DHT11 Sensor working, we want to connect the Servo Motor to our Arduino Board. The Servo Motor that we use has three wires and needs to be connected to the Arduino Board as shown in the image below.
 
+Brown wire to `GND`<br>
+Red wire to `3v3`<br>
+Orange wire to `D4`<br>
+
 ![Image of schematic2](https://github.com/Ralphvandodewaard/manualiot/blob/master/schematic2.png)
 
 ## Step 6: Uploading the required code for the Servo Motor to the Arduino Board
@@ -93,7 +97,7 @@ Unlike with the DHT11 Sensor, the required library for the Servo Motor comes pre
 DHT dht(DHTPIN, DHTTYPE);
 
 Servo servo;  
-int servoPin = 5;
+int servoPin = 2;
 int angle = 0;
 
 void setup() {
