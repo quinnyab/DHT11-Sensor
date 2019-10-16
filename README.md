@@ -33,9 +33,8 @@ In the Library Manager, we first want to search for 'Adafruit Unified Sensor'. S
 We now want to install one more library, called the 'DHT sensor library' by Adafruit. Search for the correct library in the Library Manager and again press 'Install'. If done correctly, the library will now say 'Installed'.<br>
 ![Image of library manager3](https://github.com/Ralphvandodewaard/manualiot/blob/develop/library3.png)
 
-
-## Step 3: Writing and uploading the required code for the DHT11 Sensor
-If the required libraries for the sensor have been properly installed, as done in Step 2, the code will now start uploading to your Arduino Board.
+## Step 3: Uploading the required code for the DHT11 Sensor to the Arduino Board
+We can now start uploading code to our Arduino Board to get the DHT11 Sensor to work. Plug your Arduino Board into your computer using a USB to Micro USB cable and copy and paste the code shown below to the Arduino IDE. If the required libraries for the sensor have been properly installed, as done in step 2, you can now press 'Upload' in the top left of your screen. The code will start compiling and uploading to your Arduino Board.
 ```
 #include "DHT.h"
 
@@ -68,12 +67,27 @@ void loop() {
   Serial.print("°C ");
 }
 ```
+## Step 4: Getting data from the DHT11 Sensor
+If all steps so far have been succesfully conducted, we will now be able to see the data gathered by our DHT11 Sensor. This can be done in the serial monitor in the Arduino IDE, by pressing the button in the top right of your screen. If everything functions properly, you will be able to read the measured humidity and temperature in the serial monitor.
 
-### Customisation
-- The feed is currently called `availability`. If you change this in the code, make sure to change it in Adafruit and the other way around.
-- The delay inbetween measurements is currently set at `delay(10000)`, or 10 seconds, for the prototype. In reality, you may want to set this to a higher number to preserve energy. 
+![Image of schematic](https://github.com/Ralphvandodewaard/iotManual/blob/develop/dashboard.PNG)
 
-## Step 5: Adafruit
+## Step 5: Connecting the Servo Motor to the Arduino Board
+The final step is to setup a feed in Adafruit and create a new dashboard. [Click here](https://learn.adafruit.com/adafruit-io-basics-dashboards/overview) if you don't know how to. Add a Gauge to see if your chosen spot is currently available or taken, and add a line chart to see a history of the measured data.
+
+![Image of schematic](https://github.com/Ralphvandodewaard/iotManual/blob/develop/dashboard.PNG)
+
+## Step 6: Installing the required libraries for the Servo Motor
+The final step is to setup a feed in Adafruit and create a new dashboard. [Click here](https://learn.adafruit.com/adafruit-io-basics-dashboards/overview) if you don't know how to. Add a Gauge to see if your chosen spot is currently available or taken, and add a line chart to see a history of the measured data.
+
+![Image of schematic](https://github.com/Ralphvandodewaard/iotManual/blob/develop/dashboard.PNG)
+
+## Step 7: Uploading the required code for the Servo Motor to the Arduino Board
+The final step is to setup a feed in Adafruit and create a new dashboard. [Click here](https://learn.adafruit.com/adafruit-io-basics-dashboards/overview) if you don't know how to. Add a Gauge to see if your chosen spot is currently available or taken, and add a line chart to see a history of the measured data.
+
+![Image of schematic](https://github.com/Ralphvandodewaard/iotManual/blob/develop/dashboard.PNG)
+
+## Step 8: Test and customize
 The final step is to setup a feed in Adafruit and create a new dashboard. [Click here](https://learn.adafruit.com/adafruit-io-basics-dashboards/overview) if you don't know how to. Add a Gauge to see if your chosen spot is currently available or taken, and add a line chart to see a history of the measured data.
 
 ![Image of schematic](https://github.com/Ralphvandodewaard/iotManual/blob/develop/dashboard.PNG)
