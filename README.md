@@ -13,6 +13,8 @@ Using this manual you'll be able to build a basic prototype that can automatical
   - 1x [Resistor](https://www.amazon.com/Projects-100EP51210K0-10k-Resistors-Pack/dp/B0185FIOTA) (5k-10k ohm)
   - 3x Jumper Wires
   
+![Image of requirements](https://github.com/Ralphvandodewaard/manualiot/blob/master/requirements.png)
+  
 ## Step 1: Connecting the DHT11 Sensor to the Arduino Board
 The first thing we want to do is connect our DHT11 Sensor to the Arduino Board, using Jumber Wires. The image below shows which wires need to be connected to which pins on the board. Note that we also have to attach the resistor between the wires that are connected to `3v3` and `D2`.
 
@@ -79,20 +81,26 @@ Now that we've got our DHT11 Sensor working, we want to connect the Servo Motor 
 ![Image of schematic](https://github.com/Ralphvandodewaard/iotManual/blob/develop/dashboard.PNG)
 
 ## Step 6: Uploading the required code for the Servo Motor to the Arduino Board
-Unlike with the DHT11 Sensor, the required library for the Servo Motor comes pre-installed on the Arduino IDE. We can therefore start uploading the code for our Servo Motor to the Arduino Board straight away.
+Unlike with the DHT11 Sensor, the required library for the Servo Motor comes pre-installed on the Arduino IDE. We can therefore start uploading the code for our Servo Motor to the Arduino Board straight away. Combining both the code for the DHT11 Sensor and the Servo Motor, the 
 
 ```
 #include "DHT.h"
+#include <Servo.h> 
 
 #define DHTPIN 2
 #define DHTTYPE DHT11
 
 DHT dht(DHTPIN, DHTTYPE);
 
+Servo servo;  
+int servoPin = 5;
+int angle = 0;
+
 void setup() {
   Serial.begin(9600);
 
   dht.begin();
+  servo.attach(servoPin); 
 }
 
 void loop() {
@@ -111,10 +119,22 @@ void loop() {
   Serial.print("%  Temperature: ");
   Serial.print(t);
   Serial.print("°C ");
+  
+  float angle;
+  float threshold = 65;
+  
+  if (h > threshold) {
+    for(angle = 0; angle < 180; angle++) {                                  
+      servo.write(angle);               
+      delay(15); 
+    }
+  } else {
+    for(angle = 180; angle > 0; angle--) {                                  
+      servo.write(angle);               
+      delay(15); 
+  }
 }
 ```
 
 ## Step 7: Test and customize
-The final step is to setup a feed in Adafruit and create a new dashboard. [Click here](https://learn.adafruit.com/adafruit-io-basics-dashboards/overview) if you don't know how to. Add a Gauge to see if your chosen spot is currently available or taken, and add a line chart to see a history of the measured data.
-
-![Image of schematic](https://github.com/Ralphvandodewaard/iotManual/blob/develop/dashboard.PNG)
+If the Servo Motor has been connected properly and the new code has been uploaded to the Arduino Board, you can now see that the Servo Motor starts to rotate as the measured humidity reaches a certain threshold. You can try this yourself by blowing into the DHT11 Sensor to increase the measured humidity.
