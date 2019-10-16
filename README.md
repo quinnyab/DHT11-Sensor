@@ -34,6 +34,8 @@ We now want to install one more library, called the 'DHT sensor library' by Adaf
 
 ## Step 3: Uploading the required code for the DHT11 Sensor to the Arduino Board
 We can now start uploading code to our Arduino Board to get the DHT11 Sensor to work. Plug your Arduino Board into your computer using a USB to Micro USB cable and copy and paste the code shown below to the Arduino IDE. If the required libraries for the sensor have been properly installed, as done in step 2, you can now press 'Upload' in the top left of your screen. The code will start compiling and uploading to your Arduino Board.
+
+When doing this, make sure that in 'Tools' the correct Board and Port is selected. In our case the Board is set to 'NodeMCU 1.0', while the Port is set to 'COM5'.
 ```
 #include "DHT.h"
 
@@ -67,9 +69,9 @@ void loop() {
 }
 ```
 ## Step 4: Getting data from the DHT11 Sensor
-If all steps so far have been succesfully executed, we will now be able to see the data gathered by our DHT11 Sensor. This can be done in the serial monitor in the Arduino IDE, by pressing the button in the top right of your screen. If everything functions properly, you will be able to read multiple measurements of the humidity and temperature in the serial monitor.
+If all steps so far have been succesfully executed, we will now be able to see the data gathered by our DHT11 Sensor. This can be done in the serial monitor in the Arduino IDE, by pressing the button in the top right of your screen. If everything functions properly, you will be able to read multiple measurements of the humidity and temperature in the serial monitor. When doing this, make sure that the selection dropdown in the bottom right is set to '9600 baud'. 
 
-![Image of schematic](https://github.com/Ralphvandodewaard/iotManual/blob/develop/dashboard.PNG)
+![Image of serial monitor](https://github.com/Ralphvandodewaard/manualiot/blob/master/serial.png)
 
 ## Step 5: Connecting the Servo Motor to the Arduino Board
 Now that we've got our DHT11 Sensor working, we want to connect the Servo Motor to our Arduino Board. The Servo Motor that we use has three wires and needs to be connected to the Arduino Board as shown in the image below.
