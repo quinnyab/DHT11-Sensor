@@ -37,7 +37,7 @@ We now want to install one more library, called the 'DHT sensor library' by Adaf
 ## Step 3: Uploading the required code for the DHT11 Sensor to the Arduino Board
 We can now start uploading code to our Arduino Board to get the DHT11 Sensor to work. Plug your Arduino Board into your computer using a USB to Micro USB cable and copy and paste the code shown below to the Arduino IDE. If the required libraries for the sensor have been properly installed, as done in step 2, you can now press 'Upload' in the top left of your screen. The code will start compiling and uploading to your Arduino Board.
 
-When doing this, make sure that in 'Tools' the correct Board and Port is selected. In our case the Board is set to 'NodeMCU 1.0', while the Port is set to 'COM5'.
+When doing this, make sure that in 'Tools' the correct Board and Port is selected. In our case the Board is set to 'NodeMCU 1.0', while the Port depends on which USB input you're using.
 ```
 #include "DHT.h"
 
