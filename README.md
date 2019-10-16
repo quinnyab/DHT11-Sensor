@@ -68,7 +68,7 @@ void loop() {
   Serial.print("°C ");
 }
 ```
-## Step 4: Getting data from the DHT11 Sensor
+## Step 4: Reading data from the DHT11 Sensor
 If all steps so far have been succesfully executed, we will now be able to see the data gathered by our DHT11 Sensor. This can be done in the serial monitor in the Arduino IDE, by pressing the button in the top right of your screen. If everything functions properly, you will be able to read multiple measurements of the humidity and temperature in the serial monitor. When doing this, make sure that the selection dropdown in the bottom right is set to '9600 baud'. 
 
 ![Image of serial monitor](https://github.com/Ralphvandodewaard/manualiot/blob/master/serial.png)
@@ -81,7 +81,38 @@ Now that we've got our DHT11 Sensor working, we want to connect the Servo Motor 
 ## Step 6: Uploading the required code for the Servo Motor to the Arduino Board
 Unlike with the DHT11 Sensor, the required library for the Servo Motor comes pre-installed on the Arduino IDE. We can therefore start uploading the code for our Servo Motor to the Arduino Board straight away.
 
-![Image of schematic](https://github.com/Ralphvandodewaard/iotManual/blob/develop/dashboard.PNG)
+```
+#include "DHT.h"
+
+#define DHTPIN 2
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+
+  dht.begin();
+}
+
+void loop() {
+  delay(5000);
+
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  if (isnan(h) || isnan(t)) {
+    Serial.println("Failed to read");
+    return;
+  }
+
+  Serial.print("Humidity: ");
+  Serial.print(h);
+  Serial.print("%  Temperature: ");
+  Serial.print(t);
+  Serial.print("°C ");
+}
+```
 
 ## Step 7: Test and customize
 The final step is to setup a feed in Adafruit and create a new dashboard. [Click here](https://learn.adafruit.com/adafruit-io-basics-dashboards/overview) if you don't know how to. Add a Gauge to see if your chosen spot is currently available or taken, and add a line chart to see a history of the measured data.
