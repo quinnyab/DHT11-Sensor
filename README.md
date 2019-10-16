@@ -25,13 +25,13 @@ Resistor between red and green wire<br>
 
 ## Step 2: Installing the required libraries in Arduino IDE
 For the DHT11 Sensor to properly function, we will first need to install the required libraries in the [Arduino IDE](https://www.arduino.cc/en/main/software). We can do this by going to the 'Sketch' dropdown menu, selecting 'Include Library' and then clicking on 'Manage Libraries'.<br>
-![Image of library manager](https://github.com/Ralphvandodewaard/manualiot/blob/develop/library1.png)
+![Image of library manager](https://github.com/Ralphvandodewaard/manualiot/blob/master/library1.png)
 
 In the Library Manager, we first want to search for 'Adafruit Unified Sensor'. Scroll down to the correct library, made by Adafruit, and press 'Install'. If done correctly, the library will now say 'Installed'.<br>
-![Image of library manager2](https://github.com/Ralphvandodewaard/manualiot/blob/develop/library2.png)
+![Image of library manager2](https://github.com/Ralphvandodewaard/manualiot/blob/master/library2.png)
 
 We now want to install one more library, called the 'DHT sensor library' by Adafruit. Search for the correct library in the Library Manager and again press 'Install'. If done correctly, the library will now say 'Installed'.<br>
-![Image of library manager3](https://github.com/Ralphvandodewaard/manualiot/blob/develop/library3.png)
+![Image of library manager3](https://github.com/Ralphvandodewaard/manualiot/blob/master/library3.png)
 
 ## Step 3: Uploading the required code for the DHT11 Sensor to the Arduino Board
 We can now start uploading code to our Arduino Board to get the DHT11 Sensor to work. Plug your Arduino Board into your computer using a USB to Micro USB cable and copy and paste the code shown below to the Arduino IDE. If the required libraries for the sensor have been properly installed, as done in step 2, you can now press 'Upload' in the top left of your screen. The code will start compiling and uploading to your Arduino Board.
