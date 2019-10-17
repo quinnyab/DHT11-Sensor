@@ -53,7 +53,7 @@ void setup() {
 }
 
 void loop() {
-  delay(5000);
+  delay(10000);
 
   float h = dht.readHumidity();
   float t = dht.readTemperature();
@@ -65,9 +65,11 @@ void loop() {
 
   Serial.print("Humidity: ");
   Serial.print(h);
-  Serial.print("%  Temperature: ");
+  Serial.println("%");
+  Serial.print("Temperature: ");
   Serial.print(t);
-  Serial.print("°C ");
+  Serial.println("°C");
+  Serial.println("");
 }
 ```
 ## Step 4: Reading data from the DHT11 Sensor
@@ -89,9 +91,9 @@ Unlike with the DHT11 Sensor, the required library for the Servo Motor comes pre
 
 ```
 #include "DHT.h"
-#include <Servo.h> 
+#include <Servo.h>
 
-#define DHTPIN 2
+#define DHTPIN 4
 #define DHTTYPE DHT11
 
 DHT dht(DHTPIN, DHTTYPE);
@@ -108,7 +110,7 @@ void setup() {
 }
 
 void loop() {
-  delay(5000);
+  delay(10000);
 
   float h = dht.readHumidity();
   float t = dht.readTemperature();
@@ -120,10 +122,12 @@ void loop() {
 
   Serial.print("Humidity: ");
   Serial.print(h);
-  Serial.print("%  Temperature: ");
+  Serial.println("%");
+  Serial.print("Temperature: ");
   Serial.print(t);
-  Serial.print("°C ");
-  
+  Serial.println("°C");
+  Serial.println("");
+
   float angle;
   float threshold = 65;
   
@@ -136,6 +140,7 @@ void loop() {
     for(angle = 180; angle > 0; angle--) {                                  
       servo.write(angle);               
       delay(15); 
+    }
   }
 }
 ```
