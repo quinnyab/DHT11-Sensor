@@ -101,6 +101,8 @@ DHT dht(DHTPIN, DHTTYPE);
 Servo servo;  
 int servoPin = 2;
 int angle = 0;
+float threshold = 65;
+int window = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -112,36 +114,38 @@ void setup() {
 void loop() {
   delay(10000);
 
-  float h = dht.readHumidity();
-  float t = dht.readTemperature();
+  float humidity = dht.readHumidity();
+  float temperature = dht.readTemperature();
 
-  if (isnan(h) || isnan(t)) {
+  if (isnan(humidity) || isnan(temperature)) {
     Serial.println("Failed to read");
     return;
   }
 
   Serial.print("Humidity: ");
-  Serial.print(h);
+  Serial.print(humidity);
   Serial.println("%");
   Serial.print("Temperature: ");
-  Serial.print(t);
+  Serial.print(temperature);
   Serial.println("°C");
-  Serial.println("");
-
-  float angle;
-  float threshold = 65;
   
-  if (h > threshold) {
+  if (humidity >= threshold && window == 0) {
     for(angle = 0; angle < 180; angle++) {                                  
       servo.write(angle);               
-      delay(15); 
+      delay(15);
     }
-  } else {
+    window = 1;
+    Serial.println("Window open");
+  } else if (humidity < threshold && window == 1) {
     for(angle = 180; angle > 0; angle--) {                                  
       servo.write(angle);               
-      delay(15); 
-    }
+      delay(15);
+    } 
+    window = 0;
+    Serial.println("Window closed"); 
   }
+
+  Serial.println("");
 }
 ```
 
@@ -149,7 +153,7 @@ void loop() {
 If the Servo Motor has been connected properly and the new code has been uploaded to the Arduino Board, you should now see that the Servo Motor starts to rotate when the measured humidity reaches a certain threshold. You can try this yourself by blowing into the DHT11 Sensor to increase the measured humidity. 
 
 Now that everything is working, you can start editing the code to your liking for your own projects. Below are just a few examples of changes or additions you could make:
-- Change the `delay`, which is now set to 5000, or 5 seconds
+- Change the `delay`, which is now set to 10000, or 10 seconds
 - Change or set new thresholds based on the measured humidity and temperature. The `threshold` variable is currently set to 65% humidity
 - Use another form of output instead of the Servo Motor, like LED Lights
 - Create an overview of your measured data and make graphs using [Adafruit](https://learn.adafruit.com/adafruit-io-basics-dashboards/overview)
