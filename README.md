@@ -1,10 +1,10 @@
 # Getting data from a DHT11 Temperature and Humidity Sensor and using it to rotate a Servo Motor
 
-By Ralph van Dodewaard<br>
-Last updated 15 October 2019
+Quinny Breinburg<br>
+05-10-2023
 
 ## Introduction
-Using this manual you'll be able to build a basic prototype that can automatically rotate a Servo Motor, using data gathered from a DHT11 Temperature and Humidity Sensor.
+Manual over opdracht 2, Philips HUE.
 
 ## Required hardware components
   - 1x Arduino Board (We'll be using the [ESP8266 Development Board](https://www.amazon.com/HiLetgo-Internet-Development-Wireless-Micropython/dp/B010O1G1ES))
